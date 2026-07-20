@@ -1,0 +1,63 @@
+# Algorithm Configuration
+# Generated from final_output_result.xlsx and final_insight_result.xlsx
+
+[experiment]
+experiment_name = Buyer-Supplier Game Optimization
+input_dataset = data/final_input_dataset.xlsx
+final_output_file = results/final_output_result.xlsx
+insight_output_file = results/final_insight_result.xlsx
+
+[algorithm]
+used_algorithm = NSGAII
+comparison_algorithms = eMOEA, VEGA, NSGAII, NSGAIII, SMPSO, PESA2, OMOPSO
+
+[parameters]
+distributed_cores = All available cores
+population_size = 1000
+crossover_generations = 100
+max_execution_time_ms = 5000
+run_count_per_algorithm = 10
+
+[problem_size]
+number_of_players = 16
+players = Buyer 1, Supplier 1, Supplier 2, Supplier 3, Supplier 4, Supplier 5, Supplier 6, Supplier 7, Supplier 8, Supplier 9, Supplier 10, Supplier 11, Supplier 12, Supplier 13, Supplier 14, Supplier 15
+number_of_strategies_observed = 5
+strategies_observed = Strategy 1, Strategy 2, Strategy 3, Strategy 4, Strategy 5
+number_of_properties = 22
+
+[final_solution_summary]
+fitness_value = -2.2327
+runtime_seconds = 0.09
+
+[selected_strategy_per_player]
+buyer_1 = Strategy 1 ; payoff = 6.5685759056
+supplier_1 = Strategy 5 ; payoff = 0.7422666667
+supplier_2 = Strategy 4 ; payoff = 0.251615
+supplier_3 = Strategy 4 ; payoff = 1.118345
+supplier_4 = Strategy 1 ; payoff = 0.70335
+supplier_5 = Strategy 1 ; payoff = -0.64
+supplier_6 = Strategy 2 ; payoff = 0.6711666667
+supplier_7 = Strategy 2 ; payoff = -0.124925
+supplier_8 = Strategy 3 ; payoff = 0.118285
+supplier_9 = Strategy 5 ; payoff = 0.7066722233
+supplier_10 = Strategy 1 ; payoff = 0.2913
+supplier_11 = Strategy 1 ; payoff = -0.386718
+supplier_12 = Strategy 3 ; payoff = 0.918255
+supplier_13 = Strategy 5 ; payoff = 0.94441
+supplier_14 = Strategy 3 ; payoff = -0.4978933333
+supplier_15 = Strategy 1 ; payoff = -0.4802666667
+
+[computer_specifications]
+operating_system_family = unknown
+operating_system_manufacturer = unknown
+operating_system_version = unknown
+cpu_name = unknown
+cpu_physical_cores = unknown
+cpu_logical_cores = unknown
+total_memory = unknown
+
+[reproducibility_notes]
+input_status = fixed synthetic dataset
+random_seed = not explicitly reported in the provided output files
+reproducibility_basis = fixed input dataset + fixed algorithm parameters + saved output files
+note = If a random seed is added later in the application, record it here for stronger reproducibility.

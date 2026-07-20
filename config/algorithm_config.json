@@ -2,11 +2,11 @@
   "experiment": {
     "experiment_name": "Buyer-Supplier Game Optimization",
     "input_dataset": "data/final_input_dataset.xlsx",
-    "final_output_file": "results/final_output_result.xlsx",
-    "insight_output_file": "results/final_insight_result.xlsx"
+    "final_output_file": "results/final_result.xlsx",
+    "insight_output_file": "results/final_insights.xlsx"
   },
   "algorithm": {
-    "used_algorithm": "NSGAII",
+    "used_algorithm": "NSGAIII",
     "comparison_algorithms": [
       "eMOEA",
       "VEGA",
@@ -52,91 +52,91 @@
       "Strategy 4",
       "Strategy 5"
     ],
-    "number_of_properties": 22
+    "number_of_properties": 21
   },
   "final_solution_summary": {
-    "fitness_value": -2.2327,
-    "runtime_seconds": 0.09,
+    "fitness_value": 26.485318,
+    "runtime_seconds": 0.1,
     "selected_strategy_per_player": [
       {
         "player": "Buyer 1",
-        "strategy": "Strategy 1",
-        "payoff_value": 6.5685759056
+        "strategy": "Strategy 5",
+        "payoff_value": 36.499
       },
       {
         "player": "Supplier 1",
-        "strategy": "Strategy 5",
-        "payoff_value": 0.7422666667
+        "strategy": "Strategy 4",
+        "payoff_value": 0.75835
       },
       {
         "player": "Supplier 2",
-        "strategy": "Strategy 4",
-        "payoff_value": 0.251615
+        "strategy": "Strategy 5",
+        "payoff_value": -0.5834
       },
       {
         "player": "Supplier 3",
-        "strategy": "Strategy 4",
-        "payoff_value": 1.118345
+        "strategy": "Strategy 2",
+        "payoff_value": -0.18331
       },
       {
         "player": "Supplier 4",
         "strategy": "Strategy 1",
-        "payoff_value": 0.70335
+        "payoff_value": 0.682245
       },
       {
         "player": "Supplier 5",
-        "strategy": "Strategy 1",
-        "payoff_value": -0.64
+        "strategy": "Strategy 2",
+        "payoff_value": 0.51655
       },
       {
         "player": "Supplier 6",
-        "strategy": "Strategy 2",
-        "payoff_value": 0.6711666667
+        "strategy": "Strategy 4",
+        "payoff_value": 0.8033822233
       },
       {
         "player": "Supplier 7",
-        "strategy": "Strategy 2",
-        "payoff_value": -0.124925
+        "strategy": "Strategy 1",
+        "payoff_value": 0.8797223333
       },
       {
         "player": "Supplier 8",
-        "strategy": "Strategy 3",
-        "payoff_value": 0.118285
+        "strategy": "Strategy 1",
+        "payoff_value": 0.126
       },
       {
         "player": "Supplier 9",
-        "strategy": "Strategy 5",
-        "payoff_value": 0.7066722233
+        "strategy": "Strategy 4",
+        "payoff_value": 1.21608389
       },
       {
         "player": "Supplier 10",
         "strategy": "Strategy 1",
-        "payoff_value": 0.2913
+        "payoff_value": 0.845696
       },
       {
         "player": "Supplier 11",
-        "strategy": "Strategy 1",
-        "payoff_value": -0.386718
+        "strategy": "Strategy 3",
+        "payoff_value": 1.22781389
       },
       {
         "player": "Supplier 12",
-        "strategy": "Strategy 3",
-        "payoff_value": 0.918255
+        "strategy": "Strategy 4",
+        "payoff_value": 1.003265
       },
       {
         "player": "Supplier 13",
-        "strategy": "Strategy 5",
-        "payoff_value": 0.94441
+        "strategy": "Strategy 2",
+        "payoff_value": 0.34445889
       },
       {
         "player": "Supplier 14",
         "strategy": "Strategy 3",
-        "payoff_value": -0.4978933333
+        "payoff_value": 1.525075
       },
       {
         "player": "Supplier 15",
-        "strategy": "Strategy 1",
-        "payoff_value": -0.4802666667
+        "strategy": "Strategy 4",
+        "payoff_value": 0.85175
       }
     ]
   },
