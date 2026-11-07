@@ -27,6 +27,8 @@ import org.fit.ssapp.ss.gt.implement.StandardGameTheoryProblem;
 import org.moeaframework.Executor;
 import org.moeaframework.core.NondominatedPopulation;
 import org.moeaframework.core.Problem;
+import java.io.PrintWriter;
+import org.moeaframework.core.Solution;
 
 /**
  * This class benchmarks various algorithms for solving game theory problems, logs their execution
@@ -44,7 +46,11 @@ public class AlgorithmsBenchmarking {
    * @return the runtime of the algorithm in seconds
    * @throws IllegalArgumentException if the algorithm is not supported
    */
-  public static double run(Problem problem, String algo) {
+  public static double run(
+    Problem problem,
+    String algo,
+    int runNumber
+) {
     List<String> algorithms = Arrays.asList(AppConst.SUPPORTED_ALGOS);
     if (!algorithms.contains(algo)) {
       throw new IllegalArgumentException("Algorithm not supported: " + algo);
@@ -59,6 +65,7 @@ public class AlgorithmsBenchmarking {
         .withProperty("populationSize", 1000)
         .distributeOnAllCores()
         .run();
+        exportParetoFront(result, algo, runNumber);
     long endTime = System.currentTimeMillis();
     double runtime = ((double) (endTime - startTime) / 1000);
     runtime = Math.round(runtime * 100.0) / 100.0;
@@ -66,6 +73,68 @@ public class AlgorithmsBenchmarking {
     log.info(result.iterator().next().toString());
     return runtime;
   }
+  private static void exportParetoFront(
+    NondominatedPopulation result,
+    String algorithm,
+    int runNumber
+) {
+    System.out.println(
+        "Export Pareto: "
+        + algorithm
+        + " run "
+        + runNumber
+        + " solutions="
+        + result.size()
+    );
+
+    String folderPath =
+        "results/pareto/" + algorithm;
+
+    File folder = new File(folderPath);
+
+    if (!folder.exists()) {
+        folder.mkdirs();
+    }
+
+
+    String filePath =
+        folderPath +
+        "/run_" +
+        runNumber +
+        ".csv";
+
+
+    try(PrintWriter writer =
+            new PrintWriter(filePath)) {
+
+
+        writer.println("f1,f2");
+
+
+        for(Solution solution : result) {
+
+            double f1 =
+                solution.getObjective(0);
+
+            double f2 =
+                solution.getObjective(1);
+
+
+            writer.println(
+                f1 + "," + f2
+            );
+        }
+
+
+    } catch(Exception e) {
+
+        log.error(
+            "Cannot export Pareto front",
+            e
+        );
+
+    }
+}
 
   /**
    * The main method to initialize and run the benchmarking process for the algorithms. It reads a
@@ -74,15 +143,40 @@ public class AlgorithmsBenchmarking {
    * @param args the command-line arguments
    */
   public static void main(String[] args) {
+
     String problemSerializedFilePath = ".data/gt_data.ser";
-    StandardGameTheoryProblem problem = (StandardGameTheoryProblem) ProblemUtils
-        .readProblemFromFile(
-            problemSerializedFilePath);
 
-    double runtime = run(problem, "OMOPSO");
+    StandardGameTheoryProblem problem =
+        (StandardGameTheoryProblem) ProblemUtils
+            .readProblemFromFile(problemSerializedFilePath);
 
-    log.info("{}", runtime);
-  }
+
+    String[] algorithms = {
+    "SMPSO",
+    "NSGAII",
+    "NSGAIII",
+    "VEGA",
+    "PESA2"
+};
+
+
+    for(String algorithm : algorithms){
+
+        for(int run = 1; run <= 30; run++){
+
+            double runtime =
+                run(problem, algorithm, run);
+
+
+            log.info(
+                "Algorithm {}, Run {}, runtime = {}",
+                algorithm,
+                run,
+                runtime
+            );
+        }
+    }
+}
 
   /**
    * Logs the given data to a file in CSV format.
@@ -158,14 +252,36 @@ public class AlgorithmsBenchmarking {
     IntStream.range(0, algorithms.length).forEach(i -> {
       try {
         log.info("Start running with algorithm {}", algorithms[i]);
-        Callable<Void> callable = () -> {
-          double runtime = run(problem, algorithms[i]);
-          runResults.add(new AlgorithmRunResult(algorithms[i], true, runtime));
-          log.info("Execution time: {} Second(s) with Algorithm: {}", runtime, algorithms[i]);
-          return null;
-        };
+       Callable<Void> callable = () -> {
+
+    for(int run = 1; run <= 30; run++){
+
+        double runtime =
+            run(problem, algorithms[i], run);
+
+
+        runResults.add(
+            new AlgorithmRunResult(
+                algorithms[i],
+                true,
+                runtime
+            )
+        );
+
+
+        log.info(
+            "Execution time: {} Second(s) with Algorithm: {} Run {}",
+            runtime,
+            algorithms[i],
+            run
+        );
+    }
+
+    return null;
+};
+      
         Future<Void> future = threadPool.submit(callable);
-        future.get(20, TimeUnit.SECONDS);
+        future.get(30, TimeUnit.MINUTES);
       } catch (InterruptedException e) {
         Thread.currentThread().interrupt();
         log.error("Failed, Timed out for {}", algorithms[i]);
